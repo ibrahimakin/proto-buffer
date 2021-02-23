@@ -1,0 +1,114 @@
+// The syntax for this file is proto3
+syntax = "proto3";
+// 3-3-person-with imports
+// import "personpb/date.proto";
+
+// 3-4-person-with-package
+package person;
+/*
+Person is used to identify users
+across our system
+*/
+
+message Person {
+  // 1-scalar-types
+  // the age as of the person's creation
+  int32 age = 1;
+  // the first name as documented in signup form
+  string first_name = 2;
+  string last_name = 3;   // last name as documented in signup form
+  // small_picture represents a small .jpg file
+  bytes small_picture = 4;
+  bool is_profile_verified = 5;
+  // height of the person in cms
+  float height = 6;
+
+  // 2-repeated-fields
+  // a list of phone numbers that is optional to provide at signup
+  repeated string phone_number = 7;
+
+  // 3-comments
+
+  // 4-enums
+  // we currently consider only 3 eye colours
+  enum EyeColour {
+    UNKNOWN_EYE_COLOUR = 0;
+    EYE_GREEN = 1;
+    EYE_BROWN = 2;
+    EYE_BLUE = 3;
+  }
+  // it's an enum as defined above
+  EyeColour eye_colour = 8;
+
+  // 3-1-same-level-message
+  // Person's birthday
+  Date birthday = 9;
+
+  // 3-2-nested-messages
+  // we define the type Address within Person (full name is Person.Address)
+  message Address {
+    string address_line_1 = 1;
+    string address_line_2 = 2;
+    string zip_code = 3;
+    string city = 4;
+    string country = 5;
+  }
+
+  // multiple addresses
+  repeated Address addresses = 10;
+}
+
+// 2-exercises-solutions
+message Date {
+  int32 year = 1;
+  int32 month = 2;
+  int32 day = 3;
+}
+
+message Longitude {
+  double latitude = 1;
+  double longitude = 2;
+}
+
+message Money {
+  string currency_code = 1;
+  int64 integral_amount = 2;  // units
+  int32 decimal_amount = 3;   // nanos
+}
+
+message Person2 {
+  string first_name = 1;
+  repeated string middle_names = 2;
+  string last_name = 3;
+}
+
+message DayOfWeek {
+  enum DayOfWeek {
+      DAY_OF_WEEK_UNSPECIFIED = 0;
+      MONDAY = 1;
+      TUESDAY = 2;
+      WEDNESDAY = 3;
+      THURSDAY = 4;
+      FRIDAY = 5;
+      SATURDAY = 6;
+      SUNDAY = 7;
+  }
+  DayOfWeek day_of_week = 1;
+}
+
+message City {
+  string name = 1;
+  string zip_code= 2;
+  string country_name = 3;
+}
+
+message Street {
+  string street_name = 1;
+  City city = 2;
+}
+
+message Building {
+  string building_name = 1;
+  int32 building_number = 2;
+  Street street = 3;
+}
