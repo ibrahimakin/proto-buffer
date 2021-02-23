@@ -1,7 +1,8 @@
 module main
 
-replace example_simple => ./src/simple
-
 go 1.16
 
-require example_simple v0.0.0-00010101000000-000000000000
+require (
+	github.com/golang/protobuf v1.4.3
+	google.golang.org/protobuf v1.25.0
+)
